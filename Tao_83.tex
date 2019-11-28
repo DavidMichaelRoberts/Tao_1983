@@ -1,0 +1,83 @@
+\documentclass{article}
+\usepackage{verbatim}
+\usepackage[utf8x]{inputenc}
+\title{PERFECT NUMBERS\footnotetext{Originally published in \emph{Trigon} (School Mathematics Journal of the Mathematical Association of South Australia) \textbf{21} (3), Nov. 1983, p. 7.}}
+\date{}
+\author{}
+
+\pagestyle{empty}
+
+\begin{document}
+
+
+\maketitle
+\thispagestyle{empty}
+
+\noindent
+A \textbf{perfect number} is one such that all its factors, including one but excluding itself, add up to itself. For example, $6$ is a perfect number since $6$ has factors $1, 2, 3$ and $6$ and $1 + 2 + 3 = 6$. In fact, $6$ is the smallest perfect number. 
+
+\textbf{Euclid} proved in his \textbf{Elements} that a number of the form $2^{p-1}(2^p - 1)$ is a perfect number if $2^p - 1$ is a prime number.
+
+I used this fact to write a programme in Basic to find perfect numbers but first we need a programme on prime numbers for checking if $2^p - 1$ is prime.
+
+\begin{verbatim}
+
+      ready.
+      10 rem prime numbers 
+      11 rem to calculate prime numbers up to a 
+      20 input a 
+      22 if a=2 then print"2": goto 100 
+      25 print"2 3"; 
+      30 for i=2 to a 
+      40 if i=a then 100 
+      50 for d=2 to int(sqr(i)+2) 
+      60 if i/d=int(i/d) then 90 
+      70 next d
+      80 printi;
+      90 next i
+      100 end
+
+\end{verbatim}
+
+\noindent So now let us see how we can use lines 40-60 to find perfect numbers. 
+
+\begin{verbatim}
+
+      10 rem perfect numbers
+      15 rem to calculate perfect numbers
+      20 input n
+      30 if n<6 then print "none":goto 200
+      35 if n=6 then print "6 only":goto 200
+      40 print"6"; 
+      45 for i=3 to 26 
+      46 rem limit n to 2↑25*(2↑26-1)
+      47 let y=2↑i-1 
+      50 rem next loop is to check if 2↑i-1 is prime
+      52 for l=2 to int(sqr(y))
+      53 if y/l=int(y/l) then 70
+      54 if y*2↑(i-1)>n then 200
+      55 next l
+      57 print",";y*2↑(i-1);
+      70 next i 
+      200 print 
+      201 print"(this program was written on 26/8/83)" 
+      300 end 
+
+\end{verbatim}
+
+Unfortunately, line 45 limits us to $2^{25} (2^{26} - 1)$, but then the computer has a limited range of numbers: it will never get to $2^{25} (2^{26} - 1)$ anyway. I have computed perfect numbers up to $10^{13}$. 
+
+\[
+6, 28,496, 8128, 33\,550\,336, 8.58986906\mathrm{e} + 09, 1.37438691\mathrm{e} + 11 
+\]
+
+The last two, of course, are only approximations to the actual perfect numbers and are unacceptable in this form. 
+
+\noindent $8.58986906\mathrm{e} + 09 = 8\,589\,869\,060$ when the last two figures are in doubt. In fact it is $8\,589\,869\,056$. 
+
+\medskip
+\begin{flushright}
+\textbf{Terence Tao}
+\end{flushright}
+
+\end{document}
